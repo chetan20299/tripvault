@@ -1,0 +1,48 @@
+@import '@fontsource-variable/plus-jakarta-sans';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 246 248 251;
+  --surface: 255 255 255;
+  --elevated: 241 245 249;
+  --ink: 15 23 42;
+  --muted: 100 116 139;
+  --line: 226 232 240;
+  color-scheme: light;
+}
+.dark {
+  --bg: 8 15 26;
+  --surface: 15 25 40;
+  --elevated: 24 37 56;
+  --ink: 236 242 248;
+  --muted: 148 163 184;
+  --line: 36 52 74;
+  color-scheme: dark;
+}
+
+@layer base {
+  html { -webkit-tap-highlight-color: transparent; }
+  body { @apply bg-bg text-ink font-sans antialiased; }
+  input, textarea, select { font-size: 16px; } /* prevents iOS zoom on focus */
+  @media (min-width: 640px) { input, textarea, select { font-size: 14px; } }
+}
+
+@layer components {
+  .card { @apply bg-surface rounded-2xl border border-line/70 shadow-card; }
+  .input { @apply w-full rounded-xl border border-line bg-surface px-3.5 py-2.5 text-ink placeholder:text-muted/70 outline-none transition focus:border-brand-500 focus:ring-4 focus:ring-brand-500/15 disabled:opacity-60; }
+  .label { @apply mb-1.5 block text-[13px] font-semibold text-ink/80; }
+  .chip { @apply inline-flex items-center gap-1 rounded-full bg-elevated px-2.5 py-1 text-xs font-medium text-muted; }
+  .skeleton { @apply animate-pulse rounded-lg bg-elevated; }
+}
+
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+.safe-top { padding-top: env(safe-area-inset-top); }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+.scrollbar-none { scrollbar-width: none; }
+
+@keyframes fade-up { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.animate-in { animation: fade-up 0.22s ease-out both; }
+@keyframes splash-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+@media (prefers-reduced-motion: reduce) { .animate-in, .animate-pulse { animation: none; } }

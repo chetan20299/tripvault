@@ -1,0 +1,19 @@
+rules_version = '2';
+
+// Only used when VITE_IMAGE_BACKEND=storage (requires the Blaze plan).
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /users/{uid}/cities/{cityId}/images/{imageId} {
+      function share() { return /databases/(default)/documents/shares/$(uid + '_' + cityId + '_' + request.auth.uid); }
+      function isOwner() { return request.auth != null && request.auth.uid == uid; }
+      function canView() { return request.auth != null && firestore.exists(share()); }
+      function canEdit() { return canView() && firestore.get(share()).data.role == 'editor'; }
+
+      allow read: if isOwner() || canView();
+      allow create, update: if (isOwner() || canEdit())
+        && request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+      allow delete: if isOwner() || canEdit();
+    }
+  }
+}

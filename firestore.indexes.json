@@ -1,0 +1,8 @@
+{
+  "indexes": [
+    { "collectionGroup": "entries", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "cityId", "order": "ASCENDING" }, { "fieldPath": "serverUpdatedAt", "order": "ASCENDING" }] },
+    { "collectionGroup": "visits", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "cityId", "order": "ASCENDING" }, { "fieldPath": "serverUpdatedAt", "order": "ASCENDING" }] },
+    { "collectionGroup": "images", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "cityId", "order": "ASCENDING" }, { "fieldPath": "serverUpdatedAt", "order": "ASCENDING" }] }
+  ],
+  "fieldOverrides": []
+}
